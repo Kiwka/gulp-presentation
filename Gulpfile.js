@@ -6,7 +6,9 @@ var gulp = require('gulp'),
   minifyCss = require('gulp-minify-css'),
   autoprefixer = require('gulp-autoprefixer'),
   plumber = require('gulp-plumber'),
-  csslint = require('gulp-csslint');
+  csslint = require('gulp-csslint'),
+  gutil = require('gulp-util'),
+  fs = require('fs');
 
 gulp.task('cssConcat', function() {
   gulp.src('./css/*.css')
@@ -46,6 +48,19 @@ gulp.task('compressImages', function() {
       progressive: true
     }))
     .pipe(gulp.dest('./dist/images'));
+});
+
+gulp.task('release', function() {
+  var number = gutil.env.number;
+
+  if (fs.existsSync('./releases/' + number)) {
+    return console.error('Number ' + number + ' already exists');
+  }
+
+  console.log('Making release' + number + ' ');
+  gulp.src("./dist/**/*.*")
+    .pipe(gulp.dest("./releases/" + number + "/"));
+
 });
 
 gulp.task('build', ['cssMin', 'jsMin', 'compressImages']);

@@ -1,0 +1,14 @@
+body {
+  background: red;
+  border: red;
+}
+
+body {
+  font-size: 24px;
+  background: -webkit-linear-gradient(top, blue, red);
+  background: linear-gradient(top, blue, red);
+}
+.sss {
+  font-size: 24px;
+  float: left;
+}
