@@ -8,7 +8,8 @@ var gulp = require('gulp'),
   plumber = require('gulp-plumber'),
   csslint = require('gulp-csslint'),
   gutil = require('gulp-util'),
-  fs = require('fs');
+  fs = require('fs'),
+  webserver = require('gulp-webserver');
 
 gulp.task('cssConcat', function() {
   gulp.src('./css/*.css')
@@ -63,6 +64,14 @@ gulp.task('release', function() {
 
 });
 
+gulp.task('webserver', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }));
+});
+
 gulp.task('build', ['cssMin', 'jsMin', 'compressImages']);
 
 gulp.task('watch', function() {
@@ -70,4 +79,4 @@ gulp.task('watch', function() {
   gulp.watch('./js/*.js', ['jsConcat']);
 });
 
-gulp.task('default', ['cssConcat', 'jsConcat', 'watch']);
+gulp.task('default', ['cssConcat', 'jsConcat', 'watch', 'webserver']);
