@@ -1,3 +1,3 @@
 var aaa = function() {
-  console.log('aaa');
+  console.log('aaabb');
 };
